@@ -14,13 +14,12 @@
                             placeholder="Pesquisar..."
                             class="px-3 py-2 border rounded-md text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
                         />
-                        <button
-                            type="button"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
-                            {{ route('links.create-links') }}
+                        <a
+                            href="{{ route('links.create') }}"
+                            class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm"
                         >
                             Criar Link
-                        </button>
+                        </a>
                     </div>
                 </div>
 

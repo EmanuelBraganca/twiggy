@@ -7,10 +7,8 @@ use Illuminate\View\View;
 
 class LinkController extends Controller
 {
-    public function index(Request $request): View
+    public function index(): View
     {
-        return view('links.create-links', [
-            'link' => $request->link(),
-        ]);
+        return view('links.create-links');
     }
 }
