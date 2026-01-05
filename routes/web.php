@@ -18,5 +18,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/links', [LinkController::class, 'index'])->name('links.create');
+Route::post('/links', [LinkController::class, 'store'])->name('links.store');
 
 require __DIR__.'/auth.php';
