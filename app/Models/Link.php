@@ -12,5 +12,6 @@ class Link extends Model
         'url',
         'status',
         'position',
+        'slug',
     ];
 }

@@ -34,6 +34,8 @@
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($links as $link)
                                 <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex flex-col justify-between">
+
+                                    <!-- Card -->
                                     <div>
                                         <div class="flex items-center justify-between">
                                             <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $link->name }}</h2>
@@ -43,12 +45,22 @@
                                         </div>
                                         <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 break-words">{{ $link->url }}</p>
                                     </div>
-                                    <div class="mt-4 flex items-center justify-between">
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">Posição: <span class="font-medium text-gray-700 dark:text-gray-200">{{ $link->position }}</span></div>
-                                        <div class="flex items-center space-x-2">
-                                            <a href="{{ $link->url }}" target="_blank" class="text-sm px-3 py-1 bg-white dark:bg-gray-800 border rounded text-indigo-600 hover:bg-indigo-50">Abrir</a>
-                                            <a href="#" class="text-sm px-3 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Editar</a>
-                                        </div>
+
+                                    <!-- Actions -->
+                                    <div class="mt-4 flex items-center justify-end">
+                                        <x-dropdown align="right" width="48">
+                                            <x-slot name="trigger">
+                                                <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                                                    ⋮
+                                                </button>
+                                            </x-slot>
+
+                                            <x-slot name="content">
+                                                <x-dropdown-link href="{{ route('links.edit', $link) }}">
+                                                    Editar
+                                                </x-dropdown-link>
+                                            </x-slot>
+                                        </x-dropdown>
                                     </div>
                                 </div>
                             @endforeach
