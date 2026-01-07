@@ -1,29 +1,32 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-4 flex items-center justify-between">
+            <div class="bg-white dark:bg-gray-800 overflow-visible shadow-sm sm:rounded-lg">
+                <div class="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-700">
                     <div class="flex items-center space-x-4">
-                        <div class="w-12 h-12 bg-indigo-600 text-white rounded-md flex items-center justify-center font-bold"></div>
-                        <h1 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Meus Links</h1>
+                        <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-lg flex items-center justify-center font-bold">L</div>
+                        <div>
+                            <h1 class="text-2xl font-semibold text-gray-900 dark:text-gray-100">Meus Links</h1>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Organize e compartilhe seus links favoritos</p>
+                        </div>
                     </div>
 
-                    <div class="flex items-center space-x-2">
+                    <div class="flex items-center space-x-3">
                         <input
                             type="search"
                             placeholder="Pesquisar..."
-                            class="px-3 py-2 border rounded-md text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                            class="px-3 py-2 border rounded-md text-sm bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
                         />
                         <a
                             href="{{ route('links.create') }}"
-                            class="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 text-sm"
+                            class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 text-sm shadow-sm"
                         >
                             Criar Link
                         </a>
                     </div>
                 </div>
 
-                <div class="p-4">
+                <div class="p-6">
                     @php $links = App\Models\Link::orderBy('position')->get(); @endphp
 
                     @if($links->isEmpty())
@@ -31,39 +34,55 @@
                             Nenhum link encontrado. Clique em "Criar Link" para adicionar o primeiro.
                         </div>
                     @else
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
                             @foreach($links as $link)
-                                <div class="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex flex-col justify-between">
+                                    <div class="relative bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 flex items-center hover:shadow-lg transform hover:-translate-y-1 transition">
+                                        <div class="flex-1 text-center">
+                                            <a href="{{ $link->url }}" target="_blank" class="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-gray-100 hover:underline">{{ $link->name }}</a>
 
-                                    <!-- Card -->
-                                    <div>
-                                        <div class="flex items-center justify-between">
-                                            <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">{{ $link->name }}</h2>
-                                            <span class="text-sm px-2 py-1 rounded-full {{ $link->status == 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200' }}">
-                                                {{ ucfirst($link->status) }}
-                                            </span>
+                                            <div class="mt-3 flex items-center justify-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                                                <span class="text-xs {{ $link->status ? 'text-green-500' : 'text-red-500' }}">{{ $link->status ? 'Ativo' : 'Inativo' }}</span>
+                                            </div>
                                         </div>
-                                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-300 break-words">{{ $link->url }}</p>
-                                    </div>
+                                        <div class="flex-none ml-4">
+                                            <x-dropdown align="center" width="48" class="relative z-50">
+                                                <x-slot name="trigger">
+                                                    <button
+                                                        type="button"
+                                                        class="inline-flex items-center justify-center w-8 h-8 rounded-full
+                                                            text-gray-500 hover:text-gray-700
+                                                            transition"
+                                                        aria-label="Abrir menu"
+                                                    >
+                                                        <span class="text-xl leading-none">⋮</span>
+                                                    </button>
+                                                </x-slot>
 
-                                    <!-- Actions -->
-                                    <div class="mt-4 flex items-center justify-end">
-                                        <x-dropdown align="right" width="48">
-                                            <x-slot name="trigger">
-                                                <button class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
-                                                    ⋮
-                                                </button>
-                                            </x-slot>
+                                                <x-slot name="content">
+                                                    <x-dropdown-link
+                                                        href="{{ route('links.edit', $link) }}"
+                                                        class="flex justify-center"
+                                                    >
+                                                        Editar
+                                                    </x-dropdown-link>
 
-                                            <x-slot name="content">
-                                                <x-dropdown-link href="{{ route('links.edit', $link) }}">
-                                                    Editar
-                                                </x-dropdown-link>
-                                            </x-slot>
-                                        </x-dropdown>
+                                                    <form method="POST" action="{{ route('links.delete', $link) }}">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                        <x-dropdown-link
+                                                            href="#"
+                                                            class="flex justify-center text-red-500"
+                                                            onclick="event.preventDefault(); this.closest('form').submit();"
+                                                        >
+                                                            Remover
+                                                        </x-dropdown-link>
+                                                    </form>
+                                                </x-slot>
+                                            </x-dropdown>
+                                        </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
                         </div>
                     @endif
                 </div>

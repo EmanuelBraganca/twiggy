@@ -42,4 +42,14 @@ class LinkController extends Controller
 
         return redirect()->route('index')->with('status', 'Link created successfully!');
     }
+
+    public function edit(Request $request, $id)
+    {
+        dd($request, 'Edit link ' . $id);
+    }
+
+    public function delete(Request $request, $id)
+    {
+        dd($request, 'Delete link ' . $id);
+    }
 }
