@@ -34,9 +34,9 @@
                             Nenhum link encontrado. Clique em "Criar Link" para adicionar o primeiro.
                         </div>
                     @else
-                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+                        <div class="flex flex-col items-center gap-6 mt-4">
                             @foreach($links as $link)
-                                    <div class="relative bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 flex items-center hover:shadow-lg transform hover:-translate-y-1 transition">
+                                    <div class="relative w-full max-w-3xl bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl p-6 flex items-center hover:shadow-lg transform hover:-translate-y-1 transition">
                                         <div class="flex-1 text-center">
                                             <a href="{{ $link->url }}" target="_blank" class="text-xl md:text-2xl font-extrabold text-gray-900 dark:text-gray-100 hover:underline">{{ $link->name }}</a>
 
