@@ -66,7 +66,7 @@
                                                         Editar
                                                     </x-dropdown-link>
 
-                                                    <form method="POST" action="{{ route('links.delete', $link) }}">
+                                                    <form method="POST" action="{{ route('links.destroy', $link) }}">
                                                         @csrf
                                                         @method('DELETE')
 

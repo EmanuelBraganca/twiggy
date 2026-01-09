@@ -17,9 +17,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/links', [LinkController::class, 'index'])->name('links.create');
-Route::post('/links', [LinkController::class, 'store'])->name('links.store');
-Route::post('/links', [LinkController::class, 'edit'])->name('links.edit');
-Route::delete('/links/{id}', [LinkController::class, 'delete'])->name('links.delete');
+Route::middleware('auth')->group(function () {
+    Route::get('/links', [LinkController::class, 'index'])->name('links.index');
+    Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
+    Route::post('/links', [LinkController::class, 'store'])->name('links.store');
+
+    Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
+    Route::patch('/links/{link}', [LinkController::class, 'update'])->name('links.update');
+    Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+});
 
 require __DIR__.'/auth.php';
