@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Link;
 use App\Services\SlugService;
+use Illuminate\Support\Facades\DB;
 
 class LinkController extends Controller
 {
@@ -84,5 +85,27 @@ class LinkController extends Controller
         $link->delete();
 
         return redirect()->route('index')->with('status', 'Link deleted successfully!');
+    }
+
+    
+    public function reorder(Request $request)
+    {
+        $data = $request->validate([
+            'order' => ['required', 'array', 'min:1'],
+            'order.*.id' => ['required', 'integer', 'distinct'],
+            'order.*.position' => ['required', 'integer', 'min:1'],
+        ]);
+
+        $userId = $request->user()->id;
+
+        DB::transaction(function () use ($data, $userId) {
+            foreach ($data['order'] as $item) {
+                Link::where('id', $item['id'])
+                    ->where('user_id', $userId) // segurança básica pra não reorder dos outros
+                    ->update(['position' => $item['position']]);
+            }
+        });
+
+        return response()->json(['ok' => true]);
     }
 }

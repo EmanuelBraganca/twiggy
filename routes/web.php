@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
     Route::patch('/links/{link}', [LinkController::class, 'update'])->name('links.update');
     Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+    Route::post('/links/reorder', [LinkController::class, 'reorder'])
+    ->name('links.reorder');
 });
 
 require __DIR__.'/auth.php';
