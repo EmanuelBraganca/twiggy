@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class Link extends Model
 {
@@ -14,4 +15,9 @@ class Link extends Model
         'position',
         'slug',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

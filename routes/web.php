@@ -1,13 +1,14 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LinkController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('/', 'index');
-    Route::view('/index', 'index')->name('index');
+    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/index', [HomeController::class, 'index'])->name('index');
 });
 
 

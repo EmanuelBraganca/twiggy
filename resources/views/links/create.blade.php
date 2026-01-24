@@ -19,14 +19,18 @@
                             </div>
 
                             <div class="flex items-center justify-end mt-4">
-                                <a  href="{{ route('index') }}"
-                                    class="inline-flex items-center px-6 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                                >
-                                    {{ __('Cancel Link') }}
-                                </a>
-                                <button type="submit" class="inline-flex items-center px-6 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                    {{ __('Create Link') }}
-                                </button>
+                                <div class="px-4">
+                                    <a  href="{{ route('index') }}"
+                                        class="inline-flex items-center px-6 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                    >
+                                        {{ __('Cancel Link') }}
+                                    </a>
+                                </div>
+                                <div class="">
+                                    <button type="submit" class="inline-flex items-center px-6 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                        {{ __('Create Link') }}
+                                    </button>
+                                </div>
                             </div>
                         </form>
                     </div>

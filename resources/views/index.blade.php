@@ -27,8 +27,6 @@
                 </div>
 
                 <div class="p-6">
-                    @php $links = App\Models\Link::orderBy('position')->get(); @endphp
-
                     @if($links->isEmpty())
                         <div class="text-center py-12 text-gray-500 dark:text-gray-400">
                             Nenhum link encontrado. Clique em "Criar Link" para adicionar o primeiro.

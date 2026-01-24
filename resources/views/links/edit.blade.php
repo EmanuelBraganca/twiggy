@@ -19,6 +19,38 @@
 							<input type="url" name="url" id="url" required value="{{ old('url', $link->url) }}" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100">
 						</div>
 
+						<div class="mb-4">
+							<label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
+
+							<div class="mt-2 inline-flex rounded-lg border border-gray-300 dark:border-gray-700 overflow-hidden">
+								<label class="px-4 py-2 text-sm cursor-pointer">
+								<input
+									type="radio"
+									name="status"
+									value="1"
+									class="sr-only peer"
+									@checked(old('status', $link->status) == 1)
+								>
+								<span class="peer-checked:text-white peer-checked:bg-green-600 px-4 py-2 -mx-4 -my-2 inline-block">
+									Ativo
+								</span>
+								</label>
+
+								<label class="px-4 py-2 text-sm cursor-pointer border-l border-gray-300 dark:border-gray-700">
+								<input
+									type="radio"
+									name="status"
+									value="0"
+									class="sr-only peer"
+									@checked(old('status', $link->status) == 0)
+								>
+								<span class="peer-checked:text-white peer-checked:bg-red-600 px-4 py-2 -mx-4 -my-2 inline-block">
+									Inativo
+								</span>
+								</label>
+							</div>
+						</div>
+
 						<div class="flex items-center justify-end mt-4">
 							<a href="{{ route('index') }}" class="inline-flex items-center px-6 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
 								{{ __('Cancel') }}

@@ -63,6 +63,7 @@ class LinkController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:100'],
             'url'  => ['required', 'url', 'max:250'],
+            'status' => ['required', 'boolean'],
         ]);
 
         $slug = $slugService->generateForUserLink($request->user()->id, $data['name']);
@@ -71,6 +72,7 @@ class LinkController extends Controller
             'name' => $data['name'],
             'url' => $data['url'],
             'slug' => $slug,
+            'status' => (bool) $data['status'],
         ]);
 
         return redirect()->route('index')->with('status', 'Link updated successfully!');
@@ -101,7 +103,7 @@ class LinkController extends Controller
         DB::transaction(function () use ($data, $userId) {
             foreach ($data['order'] as $item) {
                 Link::where('id', $item['id'])
-                    ->where('user_id', $userId) // segurança básica pra não reorder dos outros
+                    ->where('user_id', $userId)
                     ->update(['position' => $item['position']]);
             }
         });
